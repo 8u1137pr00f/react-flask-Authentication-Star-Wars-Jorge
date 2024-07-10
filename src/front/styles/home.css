@@ -1,7 +1,33 @@
-/*
-    home.css: This website contains selectors only used in home.css
+body, html {
+    height: 100%;
+    margin: 0;
+}
 
-    All pages share the styles on index.css but you should create 
-    one more css for each page that will contain the selected used 
-    on that page only (the ones not reused in other pages).
-*/
+body {
+    background-image: url('https://i.pinimg.com/originals/81/0a/f8/810af80c18b7d409978ffec117f68fec.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: repeat;
+}
+
+.container {
+    background-color: rgba(255, 255, 255, 0.4); /* Fondo blanco translúcido para el container */
+    border-radius: 15px;
+    padding: 15px;
+}
+
+.custom-carousel-control {
+	background-color: rgba(255, 255, 255, 0.5); /* Fondo traslúcido para el botón del carousel */
+	border: 1px solid red; /* Borde rojo */
+    height: 60px;
+    width: 22px;
+}
+
+.custom-carousel-icon {
+	filter: invert(1) sepia(1) saturate(5) hue-rotate(340deg); /* Convierte el icono del carousel a borde rojo */
+}
+
+footer {
+    background-color: brown;
+    text-align: center;
+}
