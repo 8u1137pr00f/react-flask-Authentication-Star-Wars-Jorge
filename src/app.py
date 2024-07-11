@@ -11,6 +11,7 @@ from api.admin import setup_admin
 from api.commands import setup_commands
 ########## pego mis importadores
 from api.models import db, Users, Personajes, Vehiculos, Planetas, Favoritos_personajes, Favoritos_vehiculos, Favoritos_planetas
+from flask_jwt_extended import JWTManager
 
 # from models import Person
 
@@ -31,6 +32,9 @@ else:
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 MIGRATE = Migrate(app, db, compare_type=True)
 db.init_app(app)
+
+app.config["JWT_SECRET_KEY"] = "super-secret"  #
+jwt = JWTManager(app)
 
 # add the admin
 setup_admin(app)
@@ -68,7 +72,10 @@ def serve_any_other_file(path):
     response.cache_control.max_age = 0  # avoid cache memory
     return response
 
-################# Pego mis endpoints a partir de aquí
+################# TODOS mis endpoints a partir de aquí
+################# Endpoint para Login
+
+
 ############ métodos GET ALL
 @app.route('/users', methods=['GET'])
 def handle_hello():
