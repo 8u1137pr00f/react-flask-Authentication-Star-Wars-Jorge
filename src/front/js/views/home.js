@@ -1,15 +1,22 @@
 import React, { useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "../../styles/home.css";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 
 export const Home = () => {
     const { store, actions } = useContext(Context);
+    const navigate = useNavigate();
 
     useEffect(() => {
-        actions.getCharacters();
-        actions.getVehicles();
-        actions.getPlanets();
+        const token = localStorage.getItem('token');
+        if (!token) {
+            navigate('/'); // Redirigir a login si no hay token
+        } else {
+            actions.getCharacters();
+            actions.getVehicles();
+            actions.getPlanets();
+        }
     }, []);
 
     const createCarouselItems = (items, type) => {

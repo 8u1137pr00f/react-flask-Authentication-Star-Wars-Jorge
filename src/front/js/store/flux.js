@@ -1,6 +1,7 @@
 const getState = ({ getStore, getActions, setStore }) => {
     return {
         store: {
+            users: [],
             characters: [],
             validCharacters: [],
             characterDetails: [],
@@ -15,6 +16,30 @@ const getState = ({ getStore, getActions, setStore }) => {
         },
 
         actions: {
+            
+            login: async(email, password) => {
+                try {
+                    let response = await fetch("https://curly-waddle-7v7r6qv67696crgg9-3001.app.github.dev/login", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            "email": email,
+                            "password": password
+                        })
+
+                    })
+
+                    const data = await response.json()
+                    localStorage.setItem("token", data.access_token);
+                    return true
+
+                }   catch (error) {
+                    return false
+                }
+            },
+
             getCharacters: async () => {
                 const res = await fetch(`https://www.swapi.tech/api/people/`);
                 const data = await res.json();

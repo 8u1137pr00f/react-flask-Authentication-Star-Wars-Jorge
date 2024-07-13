@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "aefd2276d55f83197180956de9848d03ce53adeef831170ce8b75e1da52824fc"
+            "sha256": "1c46d9ad11b8cda551048e899ff93bc6bb68cd60a97f381085260bebc24eb61c"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -78,6 +78,14 @@
             ],
             "index": "pypi",
             "version": "==4.0.1"
+        },
+        "flask-jwt-extended": {
+            "hashes": [
+                "sha256:63a28fc9731bcc6c4b8815b6f954b5904caa534fc2ae9b93b1d3ef12930dca95",
+                "sha256:9215d05a9413d3855764bcd67035e75819d23af2fafb6b55197eb5a3313fdfb2"
+            ],
+            "index": "pypi",
+            "version": "==4.6.0"
         },
         "flask-migrate": {
             "hashes": [
@@ -435,17 +443,25 @@
             "markers": "python_version >= '3.8'",
             "version": "==15.0.0"
         },
+        "pyjwt": {
+            "hashes": [
+                "sha256:57e28d156e3d5c10088e0c68abb90bfac3df82b40a71bd0daa20c65ccd5c23de",
+                "sha256:59127c392cc44c2da5bb3192169a91f429924e17aff6534d70fdc02ab3e04320"
+            ],
+            "markers": "python_version >= '3.7'",
+            "version": "==2.8.0"
+        },
         "pylance": {
             "hashes": [
-                "sha256:21dfcee2d599a306e1ab6a2c79ffe72ff3ea6e544074e08c1702347f2421d333",
-                "sha256:33d46b088eae4d4f0d6ca6b05667f549d700cab8b0466543eedd1a670cf08b95",
-                "sha256:4de53b9def8ecc1219e2ad48e66b986fea13a21f4fa208ea0a0524dbaa6a2f37",
-                "sha256:51576d849f60f7f0019f9792633af70331b866dabb455434835392777f3280de",
-                "sha256:793029fc787a4fe173869650f1d2c5e663febe919a1e535028b75b60ae66f82b",
-                "sha256:d3b3b87415e72cc9899c4de4f2f118bce6448d73a78379a318c2982b4110481d"
+                "sha256:893f4d95bda9f676cacca91e51e5bd2e9c3714a01145f42091b1820027a47401",
+                "sha256:a64ab20b0ec8e602bc7ef8e73b2dd14e4969900f237c1ea804c41b2216e2db1a",
+                "sha256:c2362925d117ea5a8759ace481818f31c782c1ad9915bfd93d868615a393c4f9",
+                "sha256:da64d1f8bbc1ea581c2fb7e44b9712608422e78e6bd620eaf0ffa0929ce7a131",
+                "sha256:e9307e27249262e3a95e6ec52021c9179025b24fc9d146af6a5810f1d35de8ec",
+                "sha256:f5ed83cbe258dcd3c7595e87c88cbb69eb793b2ae8989afa3787719f33c99ecb"
             ],
             "index": "pypi",
-            "version": "==0.14.0"
+            "version": "==0.14.1"
         },
         "python-dotenv": {
             "hashes": [
