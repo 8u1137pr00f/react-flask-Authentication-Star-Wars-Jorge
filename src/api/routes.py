@@ -40,7 +40,7 @@ def handle_hello():
 
 ################# TODOS mis endpoints a partir de aquí
 ############ métodos GET ALL
-@api.route('/users', methods=['GET'])
+@api.route('/api/users', methods=['GET'])
 def handle_users():
     users = Users.query.all()
     users_serialized = list(map(lambda item:item.serialize(), users))
