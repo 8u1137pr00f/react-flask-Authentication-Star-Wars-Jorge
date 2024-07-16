@@ -19,7 +19,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             
             login: async(email, password) => {
                 try {
-                    let response = await fetch("https://curly-waddle-7v7r6qv67696crgg9-3001.app.github.dev/login", {
+                    let response = await fetch("https://curly-waddle-7v7r6qv67696crgg9-3001.app.github.dev/api/login", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json"

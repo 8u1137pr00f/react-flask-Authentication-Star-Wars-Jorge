@@ -17,17 +17,79 @@ body {
 }
 
 .custom-carousel-control {
-	background-color: rgba(255, 255, 255, 0.5); /* Fondo traslúcido para el botón del carousel */
-	border: 1px solid red; /* Borde rojo */
+    background-color: rgba(255, 255, 255, 0.5); /* Fondo traslúcido para el botón del carousel */
+    border: 1px solid red; /* Borde rojo */
     height: 60px;
     width: 22px;
 }
 
 .custom-carousel-icon {
-	filter: invert(1) sepia(1) saturate(5) hue-rotate(340deg); /* Convierte el icono del carousel a borde rojo */
+    filter: invert(1) sepia(1) saturate(5) hue-rotate(340deg); /* Convierte el icono del carousel a borde rojo */
 }
 
 footer {
     background-color: brown;
     text-align: center;
+}
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.login-container form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 300px;
+}
+
+.login-container label {
+    color: red;
+    width: 100%;
+    text-align: center;
+    background-color: #1313137f;
+    font-size: 2.1rem; 
+    margin-bottom: 10px;
+}
+
+.login-container input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.login-container input:focus {
+    animation: inputFocus 0.5s ease-in-out forwards;
+}
+
+.login-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: #1313137f;
+    color: #fff;
+    font-size: 1.7rem;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.login-container button:hover {
+    background-color: #460000b0;
+}
+
+/* Definir la animación para los inputs */
+@keyframes inputFocus {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7);
+    }
+    100% {
+        box-shadow: 0 0 10px 5px rgba(255, 0, 0, 0.7);
+    }
 }

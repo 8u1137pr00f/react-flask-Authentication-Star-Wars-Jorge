@@ -1,18 +1,24 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
-import starWarsLogo from "../img/star_wars_logo_PNG28.png"; // Asegúrate de que la ruta sea correcta
+import starWarsLogo from "../img/star_wars_logo_PNG28.png";
 
 export const Navbar = () => {
     const { store, actions } = useContext(Context);
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        navigate('/');
+    };
 
     return (
         <nav className="navbar p-3 m-3" style={{ backgroundColor: 'rgba(0, 0, 0, 0.8)' }}>
             <Link to="/">
                 <img src={starWarsLogo} alt="Star Wars Logo" style={{ height: "75px" }} className="navbar-brand mb-0 h1" />
             </Link>
-            <div className="ms-auto">
-                <div className="dropdown">
+            <div className="ms-auto d-flex align-items-center">
+                <div className="dropdown me-3">
                     <button className="btn btn-dark dropdown-toggle btn-lg" type="button" id="favoritesDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                         Favorites
                     </button>
@@ -35,6 +41,9 @@ export const Navbar = () => {
                         )}
                     </ul>
                 </div>
+                <button className="btn btn-danger btn-lg" onClick={handleLogout}>
+                    Logout
+                </button>
             </div>
         </nav>
     );

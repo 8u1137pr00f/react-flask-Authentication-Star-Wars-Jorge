@@ -1,12 +1,10 @@
 from flask import Flask, request, jsonify, Blueprint
-from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 from api.models import db, Users, Personajes, Vehiculos, Planetas, Favoritos_personajes, Favoritos_vehiculos, Favoritos_planetas
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 
-app = Flask(__name__)
-app.config['JWT_SECRET_KEY'] = 'your_jwt_secret_key'  # Cambia esto por una clave secreta segura
-jwt = JWTManager(app)
+#app = Flask(__name__)
 
 api = Blueprint('api', __name__)
 CORS(api)
@@ -32,6 +30,7 @@ def protected():
     return jsonify(logged_in_as=current_user()), 200
 
 @api.route('/hello', methods=['POST', 'GET'])
+@jwt_required()
 def handle_hello():
     response_body = {
         "message": "Hello! I'm a message that came from the backend, check the network tab on the google inspector and you will see the GET request"
@@ -40,7 +39,8 @@ def handle_hello():
 
 ################# TODOS mis endpoints a partir de aquí
 ############ métodos GET ALL
-@api.route('/api/users', methods=['GET'])
+@api.route('/users', methods=['GET'])
+@jwt_required()
 def handle_users():
     users = Users.query.all()
     users_serialized = list(map(lambda item:item.serialize(), users))
@@ -51,6 +51,7 @@ def handle_users():
     return jsonify(response_body), 200
 
 @api.route('/personajes', methods=['GET'])
+@jwt_required()
 def handle_personajes():
     personajes = Personajes.query.all()
     personajes_serialized = list(map(lambda item:item.serialize(), personajes))
@@ -61,6 +62,7 @@ def handle_personajes():
     return jsonify(response_body), 200
 
 @api.route('/vehiculos', methods=['GET'])
+@jwt_required()
 def handle_vehiculos():
     vehiculos = Vehiculos.query.all()
     vehiculos_serialized = list(map(lambda item:item.serialize(), vehiculos))
@@ -71,6 +73,7 @@ def handle_vehiculos():
     return jsonify(response_body), 200
 
 @api.route('/planetas', methods=['GET'])
+@jwt_required()
 def handle_planetas():
     planetas = Planetas.query.all()
     planetas_serialized = list(map(lambda item:item.serialize(), planetas))
@@ -81,6 +84,7 @@ def handle_planetas():
     return jsonify(response_body), 200
 
 @api.route('/favoritos_personajes', methods=['GET'])
+@jwt_required()
 def handle_favoritos_personajes():
     favoritos_personajes = Favoritos_personajes.query.all()
     favoritos_personajes_serialized = list(map(lambda item:item.serialize(), favoritos_personajes))
@@ -91,6 +95,7 @@ def handle_favoritos_personajes():
     return jsonify(response_body), 200
 
 @api.route('/favoritos_vehiculos', methods=['GET'])
+@jwt_required()
 def handle_favoritos_vehiculos():
     favoritos_vehiculos = Favoritos_vehiculos.query.all()
     favoritos_vehiculos_serialized = list(map(lambda item:item.serialize(), favoritos_vehiculos))
@@ -101,6 +106,7 @@ def handle_favoritos_vehiculos():
     return jsonify(response_body), 200
 
 @api.route('/favoritos_planetas', methods=['GET'])
+@jwt_required()
 def handle_favoritos_planetas():
     favoritos_planetas = Favoritos_planetas.query.all()
     favoritos_planetas_serialized = list(map(lambda item:item.serialize(), favoritos_planetas))
@@ -112,6 +118,7 @@ def handle_favoritos_planetas():
 
 ############ métodos para GET específico por ID
 @api.route('/users/<int:user_id>', methods=['GET'])
+@jwt_required()
 def get_user_by_id(user_id):
     user = Users.query.filter_by(id=user_id).first()
     user_serialize = user.serialize()
@@ -122,6 +129,7 @@ def get_user_by_id(user_id):
     return jsonify(response_body), 200
 
 @api.route('/personajes/<int:personaje_id>', methods=['GET'])
+@jwt_required()
 def get_personaje_by_id(personaje_id):
     personaje = Personajes.query.filter_by(id=personaje_id).first()
     personaje_serialize = personaje.serialize()
@@ -132,6 +140,7 @@ def get_personaje_by_id(personaje_id):
     return jsonify(response_body), 200
 
 @api.route('/vehiculos/<int:vehiculo_id>', methods=['GET'])
+@jwt_required()
 def get_vehiculo_by_id(vehiculo_id):
     vehiculo = Vehiculos.query.filter_by(id=vehiculo_id).first()
     vehiculo_serialize = vehiculo.serialize()
@@ -142,6 +151,7 @@ def get_vehiculo_by_id(vehiculo_id):
     return jsonify(response_body), 200
 
 @api.route('/planetas/<int:planeta_id>', methods=['GET'])
+@jwt_required()
 def get_planeta_by_id(planeta_id):
     planeta = Planetas.query.filter_by(id=planeta_id).first()
     planeta_serialize = planeta.serialize()
@@ -152,6 +162,7 @@ def get_planeta_by_id(planeta_id):
     return jsonify(response_body), 200
 
 @api.route('/favoritos_personajes/<int:favorito_personaje_id>', methods=['GET'])
+@jwt_required()
 def get_favorito_personaje_by_id(favorito_personaje_id):
     favorito_personaje = Favoritos_personajes.query.filter_by(id=favorito_personaje_id).first()
     favorito_personaje_serialize = favorito_personaje.serialize()
@@ -162,6 +173,7 @@ def get_favorito_personaje_by_id(favorito_personaje_id):
     return jsonify(response_body), 200
 
 @api.route('/favoritos_vehiculos/<int:favorito_vehiculo_id>', methods=['GET'])
+@jwt_required()
 def get_favorito_vehiculo_by_id(favorito_vehiculo_id):
     favorito_vehiculo = Favoritos_vehiculos.query.filter_by(id=favorito_vehiculo_id).first()
     favorito_vehiculo_serialize = favorito_vehiculo.serialize()
@@ -172,6 +184,7 @@ def get_favorito_vehiculo_by_id(favorito_vehiculo_id):
     return jsonify(response_body), 200
 
 @api.route('/favoritos_planetas/<int:favorito_planeta_id>', methods=['GET'])
+@jwt_required()
 def get_favorito_planeta_by_id(favorito_planeta_id):
     favorito_planeta = Favoritos_planetas.query.filter_by(id=favorito_planeta_id).first()
     favorito_planeta_serialize = favorito_planeta.serialize()
@@ -185,6 +198,7 @@ def get_favorito_planeta_by_id(favorito_planeta_id):
 
 ############## métodos para POST
 @api.route('/users', methods=['POST'])
+@jwt_required()
 def create_user():
     body = request.json
     me = Users(name=body["name"], email=body["email"], password=body["password"], is_active=body["is_active"])
@@ -197,6 +211,7 @@ def create_user():
     return jsonify(response_body), 200
 
 @api.route('/personajes', methods=['POST'])
+@jwt_required()
 def create_personaje():
     body = request.json
     me = Personajes(name=body["name"], eye_color=body["eye_color"], hair_color=body["hair_color"])
@@ -209,6 +224,7 @@ def create_personaje():
     return jsonify(response_body), 200
 
 @api.route('/vehiculos', methods=['POST'])
+@jwt_required()
 def create_vehiculo():
     body = request.json
     me = Vehiculos(name=body["name"], model=body["model"])
@@ -221,6 +237,7 @@ def create_vehiculo():
     return jsonify(response_body), 200
 
 @api.route('/planetas', methods=['POST'])
+@jwt_required()
 def create_planeta():
     body = request.json
     me = Planetas(name=body["name"], population=body["population"])
@@ -233,6 +250,7 @@ def create_planeta():
     return jsonify(response_body), 200
 
 @api.route('/favoritos_personajes', methods=['POST'])
+@jwt_required()
 def create_favorito_personaje():
     body = request.json
     me = Favoritos_personajes(personajes_relacion=body["personajes_relacion"], usuarios_relacion=body["usuarios_relacion"])
@@ -245,6 +263,7 @@ def create_favorito_personaje():
     return jsonify(response_body), 200
 
 @api.route('/favoritos_vehiculos', methods=['POST'])
+@jwt_required()
 def create_favorito_vehiculo():
     body = request.json
     me = Favoritos_vehiculos(vehiculos_relacion=body["vehiculos_relacion"], usuarios_relacion=body["usuarios_relacion"])
@@ -257,6 +276,7 @@ def create_favorito_vehiculo():
     return jsonify(response_body), 200
 
 @api.route('/favoritos_planetas', methods=['POST'])
+@jwt_required()
 def create_favorito_planeta():
     body = request.json
     me = Favoritos_planetas(planetas_relacion=body["planetas_relacion"], usuarios_relacion=body["usuarios_relacion"])
@@ -270,6 +290,7 @@ def create_favorito_planeta():
 
 ############### métodos para PUT por ID
 @api.route('/users/<int:user_id>', methods=['PUT'])
+@jwt_required()
 def update_user(user_id):
     user = Users.query.get(user_id)
     if user:
@@ -284,6 +305,7 @@ def update_user(user_id):
         return jsonify({"msg": "User not found"}), 404
 
 @api.route('/personajes/<int:personaje_id>', methods=['PUT'])
+@jwt_required()
 def update_personaje(personaje_id):
     personaje = Personajes.query.get(personaje_id)
     if personaje:
@@ -297,6 +319,7 @@ def update_personaje(personaje_id):
         return jsonify({"msg": "Personaje not found"}), 404
 
 @api.route('/vehiculos/<int:vehiculo_id>', methods=['PUT'])
+@jwt_required()
 def update_vehiculo(vehiculo_id):
     vehiculo = Vehiculos.query.get(vehiculo_id)
     if vehiculo:
@@ -309,6 +332,7 @@ def update_vehiculo(vehiculo_id):
         return jsonify({"msg": "Vehiculo not found"}), 404
 
 @api.route('/planetas/<int:planeta_id>', methods=['PUT'])
+@jwt_required()
 def update_planeta(planeta_id):
     planeta = Planetas.query.get(planeta_id)
     if planeta:
@@ -322,6 +346,7 @@ def update_planeta(planeta_id):
 
 ############### métodos para DELETE por ID
 @api.route('/users/<int:user_id>', methods=['DELETE'])
+@jwt_required()
 def delete_user(user_id):
     user = Users.query.get(user_id)
     if user:
@@ -335,6 +360,7 @@ def delete_user(user_id):
         return jsonify({"msg": "User not found"}), 404
 
 @api.route('/personajes/<int:personaje_id>', methods=['DELETE'])
+@jwt_required()
 def delete_personaje(personaje_id):
     personaje = Personajes.query.get(personaje_id)
     if personaje:
@@ -346,6 +372,7 @@ def delete_personaje(personaje_id):
         return jsonify({"msg": "Personaje not found"}), 404
 
 @api.route('/vehiculos/<int:vehiculo_id>', methods=['DELETE'])
+@jwt_required()
 def delete_vehiculo(vehiculo_id):
     vehiculo = Vehiculos.query.get(vehiculo_id)
     if vehiculo:
@@ -357,6 +384,7 @@ def delete_vehiculo(vehiculo_id):
         return jsonify({"msg": "Vehiculo not found"}), 404
 
 @api.route('/planetas/<int:planeta_id>', methods=['DELETE'])
+@jwt_required()
 def delete_planeta(planeta_id):
     planeta = Planetas.query.get(planeta_id)
     if planeta:
@@ -369,6 +397,7 @@ def delete_planeta(planeta_id):
     
 ################ métodos para DELETE Favoritos por ID
 @api.route('/favoritos_personajes/<int:favorito_personaje_id>', methods=['DELETE'])
+@jwt_required()
 def delete_favorito_personaje(favorito_personaje_id):
     favorito_personaje = Favoritos_personajes.query.get(favorito_personaje_id)
     if favorito_personaje:
@@ -379,6 +408,7 @@ def delete_favorito_personaje(favorito_personaje_id):
         return jsonify({"msg": "Favorito personaje not found"}), 404
 
 @api.route('/favoritos_vehiculos/<int:favorito_vehiculo_id>', methods=['DELETE'])
+@jwt_required()
 def delete_favorito_vehiculo(favorito_vehiculo_id):
     favorito_vehiculo = Favoritos_vehiculos.query.get(favorito_vehiculo_id)
     if favorito_vehiculo:
@@ -389,6 +419,7 @@ def delete_favorito_vehiculo(favorito_vehiculo_id):
         return jsonify({"msg": "Favorito vehiculo not found"}), 404
 
 @api.route('/favoritos_planetas/<int:favorito_planeta_id>', methods=['DELETE'])
+@jwt_required()
 def delete_favorito_planeta(favorito_planeta_id):
     favorito_planeta = Favoritos_planetas.query.get(favorito_planeta_id)
     if favorito_planeta:
