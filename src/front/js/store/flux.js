@@ -17,9 +17,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 
         actions: {
             
-            login: async(email, password) => {
+            login: async (email, password) => {
                 try {
-                    let response = await fetch("https://curly-waddle-7v7r6qv67696crgg9-3001.app.github.dev/api/login", {
+                    let response = await fetch("https://miniature-potato-wrv9p6rpvq5x39vpx-3001.app.github.dev/api/login", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json"
@@ -28,15 +28,19 @@ const getState = ({ getStore, getActions, setStore }) => {
                             "email": email,
                             "password": password
                         })
+                    });
 
-                    })
+                    if (response.status !== 200) {
+                        throw new Error("Login failed");
+                    }
 
-                    const data = await response.json()
+                    const data = await response.json();
                     localStorage.setItem("token", data.access_token);
-                    return true
+                    return true;
 
-                }   catch (error) {
-                    return false
+                } catch (error) {
+                    console.error("There was an error during login", error);
+                    return false;
                 }
             },
 

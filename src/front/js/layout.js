@@ -8,6 +8,7 @@ import Login from "./views/login";
 import { VehiclesDetails } from ".//views/vehiclesDetails";
 import { CharactersDetails } from ".//views/charactersDetails";
 import { PlanetsDetails } from ".//views/planetsDetails";
+import PrivateRoute from "./component/PrivateRoute";
 
 const Layout = () => {
 	
@@ -20,12 +21,12 @@ const Layout = () => {
 					<Navbar />
 					<Routes>
 						<Route path="/" element={<Login />} />  {/* Ruta de login */}
-						<Route path="/home" element={<Home />} />
-						<Route path="/vehicles/:id" element={<VehiclesDetails />} />
-						<Route path="/characters/:id" element={<CharactersDetails />} />
-						<Route path="/planets/:id" element={<PlanetsDetails />} />
-						<Route path="*" element={<h1>Not found!</h1>} />
-					</Routes>
+						<Route path="/home" element={<PrivateRoute><Home /></PrivateRoute>}/>
+                        <Route path="/vehicles/:id" element={<PrivateRoute><VehiclesDetails /></PrivateRoute>}/>
+                        <Route path="/characters/:id" element={<PrivateRoute><CharactersDetails /></PrivateRoute>}/>
+                        <Route path="/planets/:id" element={<PrivateRoute><PlanetsDetails /></PrivateRoute>}/>
+                        <Route path="*" element={<h1>Not found!</h1>} />
+                    </Routes>
 					<footer className="footer mt-auto py-3 text-center">
 						<span>
 							Made by <strong>Jorge Astorga</strong>. Copyright ©2024. "May the force be with you."
